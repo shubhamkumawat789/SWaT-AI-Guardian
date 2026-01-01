@@ -38,9 +38,8 @@ An advanced real-time anomaly detection system for Secure Water Treatment (SWaT)
 ### **Dataset**
 - **SWaT (Secure Water Treatment)** - Industrial control system dataset
 
-```
 
-```
+
 
 ## 🔄 System Workflow & Integration
 
@@ -112,8 +111,8 @@ This project is a highly integrated pipeline. Here is how the data flows from a 
 └──────────────┘ └──────────┘ └─────────────┘
 ---
 
-
-
+```
+```
 ## 📂 Project Structure & Component Descriptions
 
 ### **File Tree**
@@ -432,6 +431,7 @@ For questions or support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for Industrial Cybersecurity**
+
 
 
 
