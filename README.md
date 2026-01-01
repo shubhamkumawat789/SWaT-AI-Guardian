@@ -144,7 +144,8 @@ secure-water-treatment/
 
 
 ### **Detailed File Registry**
-```
+
+
 | Path | Description | Role in System |
 | :--- | :--- | :--- |
 | **Root Files** | | |
@@ -173,9 +174,9 @@ secure-water-treatment/
 | `models/*.pkl` | Serialized scalers and Isolation Forest model artifacts. | Model |
 | **Tests** | | |
 | `tests/test_detector.py` | Unit tests for the anomaly detection logic and thresholds. | QA |
-```
 
----
+
+
 
 ## 🚀 Implementation Roadmap
 
@@ -435,6 +436,7 @@ For questions or support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for Industrial Cybersecurity**
+
 
 
 
