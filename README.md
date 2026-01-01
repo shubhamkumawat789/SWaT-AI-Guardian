@@ -112,11 +112,12 @@ This project is a highly integrated pipeline. Here is how the data flows from a 
 └──────────────┘ └──────────┘ └─────────────┘
 ---
 
----
+
 
 ## 📂 Project Structure & Component Descriptions
 
 ### **File Tree**
+
 ```
 secure-water-treatment/
 ├── config/                 # System configurations (Kafka, Spark, ML)
@@ -136,7 +137,9 @@ secure-water-treatment/
 ├── requirements.txt        # Python dependency list
 ├── start_system.bat        # Automated one-click startup (Hybrid Mode)
 └── README.md              # Project documentation
+
 ```
+
 
 ### **Detailed File Registry**
 ```
@@ -430,4 +433,5 @@ For questions or support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for Industrial Cybersecurity**
+
 
