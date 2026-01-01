@@ -112,31 +112,35 @@ This project is a highly integrated pipeline. Here is how the data flows from a 
 ---
 
 ```
-```
+
 ## 📂 Project Structure & Component Descriptions
 
 ### **File Tree**
 
-```
+## 📂 Project Structure
+
+```bash
 secure-water-treatment/
-├── config/                 # System configurations (Kafka, Spark, ML)
-├── data/                   # Sensor datasets (Attack & Normal)
-├── models/                 # Saved AI models & Preprocessing scalers
-├── src/                    # Core source code
-│   ├── api/                # FastAPI Backend server
-│   ├── dashboard/          # Streamlit UI (app.py)
+├── .github/                # GitHub Actions & workflows
+├── config/                 # Configuration files (Kafka, Spark, Models)
+├── data/                   # Datasets (Attack & Normal simulation data)
+├── models/                 # Pre-trained models (.h5) & scalers (.pkl)
+├── logs/                   # System & Error logs
+├── src/
+│   ├── api/                # FastAPI Backend
+│   ├── dashboard/          # Streamlit Visualization App
 │   ├── data_ingestion/     # Kafka Producers & Topic Setup
-│   ├── inference/          # AI Engine & Ensemble Detection
-│   ├── notebooks/          # Training scripts & Jupyter Notebooks
-│   ├── preprocessing/      # Spark Stream Processing
-│   └── utils.py            # Global utility functions
-├── tests/                  # Unit and integration tests
-├── Dockerfile              # Container definition for deployment
-├── docker-compose.yml      # Service orchestration (Zookeeper, Kafka, etc.)
-├── requirements.txt        # Python dependency list
-├── start_system.bat        # Automated one-click startup (Hybrid Mode)
-└── README.md              # Project documentation
+│   ├── inference/          # Hybrid Anomaly Detection Engine
+│   ├── notebooks/          # Training Notebooks (Jupyter)
+│   ├── preprocessing/      # Spark Streaming Logic
+│   └── utils.py            # Shared Utilities
+├── tests/                  # Unit & Integration Tests
+├── Dockerfile              # Container definition
+├── docker-compose.yml      # Service Orchestration
+├── requirements.txt        # Python Dependencies
+└── start_system.bat        # Windows Startup Script
 ```
+
 
 
 ### **Detailed File Registry**
@@ -431,6 +435,7 @@ For questions or support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for Industrial Cybersecurity**
+
 
 
 
