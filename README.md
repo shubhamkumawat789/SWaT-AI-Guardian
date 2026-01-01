@@ -40,7 +40,7 @@ An advanced real-time anomaly detection system for Secure Water Treatment (SWaT)
 
 ```
 
----
+```
 
 ## 🔄 System Workflow & Integration
 
@@ -68,11 +68,10 @@ This project is a highly integrated pipeline. Here is how the data flows from a 
 *   **Streamlit**: A real-time dashboard that consumes from `swat-anomalies`. It shows live sensor charts and flashes **CRITICAL** alerts when the AI detects a threat.
 *   **Integration**: Seamlessly connects the backend AI logic to a user-friendly frontend.
 
----
-
+```
 ## 🏗️ Architecture
 
-```
+---
 ┌─────────────────┐
 │  SWaT Sensors   │
 │  (CSV Simulation)│
@@ -111,7 +110,7 @@ This project is a highly integrated pipeline. Here is how the data flows from a 
 │  FastAPI     │ │ Alerting │ │  Streamlit  │
 │  REST API    │ │  System  │ │  Dashboard  │
 └──────────────┘ └──────────┘ └─────────────┘
-```
+---
 
 ---
 
@@ -140,7 +139,7 @@ secure-water-treatment/
 ```
 
 ### **Detailed File Registry**
-
+```
 | Path | Description | Role in System |
 | :--- | :--- | :--- |
 | **Root Files** | | |
@@ -169,65 +168,65 @@ secure-water-treatment/
 | `models/*.pkl` | Serialized scalers and Isolation Forest model artifacts. | Model |
 | **Tests** | | |
 | `tests/test_detector.py` | Unit tests for the anomaly detection logic and thresholds. | QA |
-
+```
 
 ---
 
 ## 🚀 Implementation Roadmap
 
-### **Phase 1: Project Setup** (Week 1) ✅
-- [x] Create project structure
-- [x] Set up virtual environment
-- [x] Install dependencies
-- [x] Configuration management
+### **Phase 1: Project Setup** 
+- Create project structure
+- Set up virtual environment
+- Install dependencies
+- Configuration management
 
-### **Phase 2: Kafka Integration** (Week 2) ✅
-- [x] Install and configure Kafka
-- [x] Create Kafka producer (sensor data simulation)
-- [x] Create Kafka consumer
-- [x] Set up topics (sensor-data, anomalies, alerts)
+### **Phase 2: Kafka Integration** 
+- Install and configure Kafka
+- Create Kafka producer (sensor data simulation)
+- Create Kafka consumer
+- Set up topics (sensor-data, anomalies, alerts)
 
-### **Phase 3: Spark Integration** (Week 3) ✅
-- [x] Set up PySpark environment
-- [x] Implement Spark Structured Streaming
-- [x] Migrate feature engineering to PySpark
-- [x] Window-based aggregations with event-time processing
+### **Phase 3: Spark Integration** 
+- Set up PySpark environment
+- Implement Spark Structured Streaming
+- Migrate feature engineering to PySpark
+- Window-based aggregations with event-time processing
 
-### **Phase 4: Enhanced ML Models** (Week 4) ✅
-- [x] Train Isolation Forest for ensemble detection
-- [x] Implement model versioning
-- [x] Create ensemble inference pipeline
-- [x] Optimize model performance
+### **Phase 4: Enhanced ML Models** 
+- Train Isolation Forest for ensemble detection
+- Implement model versioning
+- Create ensemble inference pipeline
+- Optimize model performance
 
-### **Phase 5: FastAPI Backend** (Week 5) ✅
-- [x] Create REST API with FastAPI
-- [x] Implement prediction endpoints
-- [x] Add WebSocket for real-time updates (via Kafka mirroring)
-- [x] In-memory alert caching
+### **Phase 5: FastAPI Backend** 
+- Create REST API with FastAPI
+- Implement prediction endpoints
+- Add WebSocket for real-time updates (via Kafka mirroring)
+- In-memory alert caching
 
-### **Phase 6: Advanced Alerting** (Week 6) ✅
-- [x] Multi-level alerting (DL + Statistical)
-- [x] Structured logging with JSON format
-- [x] Alert aggregation and deduplication (5s cooldown)
-- [x] Persistent logging to `logs/system.log`
+### **Phase 6: Advanced Alerting** 
+- Multi-level alerting (DL + Statistical)
+- Structured logging with JSON format
+- Alert aggregation and deduplication (5s cooldown)
+- Persistent logging to `logs/system.log`
 
-### **Phase 7: Visualization** (Week 7) ✅
-- [x] Enhanced Streamlit dashboard (Ensemble View)
-- [x] Real-time sensor telemetry charts
-- [x] Historical anomaly tracking
-- [x] Export capabilities (CSV Report Generation)
+### **Phase 7: Visualization** 
+- Enhanced Streamlit dashboard (Ensemble View)
+- Real-time sensor telemetry charts
+- Historical anomaly tracking
+- Export capabilities (CSV Report Generation)
 
-### **Phase 8: Testing & Optimization** (Week 8) ✅
-- [x] Unit tests for inference engine (`tests/`)
-- [x] Performance optimization for ultra-fast simulation
-- [x] Hybrid integration (Windows + WSL support)
-- [x] Simplified installation (Cleaned redundant scripts)
+### **Phase 8: Testing & Optimization** 
+- Unit tests for inference engine (`tests/`)
+- Performance optimization for ultra-fast simulation
+- Hybrid integration (Windows + WSL support)
+- Simplified installation (Cleaned redundant scripts)
 
-### **Phase 9: Deployment** (Week 9-10) ✅
-- [x] Docker containerization (Multi-purpose Dockerfile)
-- [x] Docker Compose orchestration (Zookeeper, Kafka, API, Engine, Dash)
-- [x] CI/CD pipeline (GitHub Actions for Testing/Linting)
-- [x] Production deployment ready
+### **Phase 9: Deployment** 
+- Docker containerization (Multi-purpose Dockerfile)
+- Docker Compose orchestration (Zookeeper, Kafka, API, Engine, Dash)
+- CI/CD pipeline (GitHub Actions for Testing/Linting)
+- Production deployment ready
 
 ## 🚀 Deployment (Production Mode)
 
@@ -431,3 +430,4 @@ For questions or support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for Industrial Cybersecurity**
+
