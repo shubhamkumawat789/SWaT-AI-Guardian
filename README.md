@@ -1,1 +1,1 @@
-# -SWaT-AI-Guardian
+# SWaT-AI-Guardian
