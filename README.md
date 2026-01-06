@@ -120,25 +120,45 @@ This project is a highly integrated pipeline. Here is how the data flows from a 
 ## 📂 Project Structure
 
 ```bash
-secure-water-treatment/
-├── .github/                # GitHub Actions & workflows
-├── config/                 # Configuration files (Kafka, Spark, Models)
-├── data/                   # Datasets (Attack & Normal simulation data)
-├── models/                 # Pre-trained models (.h5) & scalers (.pkl)
-├── logs/                   # System & Error logs
-├── src/
-│   ├── api/                # FastAPI Backend
-│   ├── dashboard/          # Streamlit Visualization App
-│   ├── data_ingestion/     # Kafka Producers & Topic Setup
-│   ├── inference/          # Hybrid Anomaly Detection Engine
-│   ├── notebooks/          # Training Notebooks (Jupyter)
-│   ├── preprocessing/      # Spark Streaming Logic
-│   └── utils.py            # Shared Utilities
-├── tests/                  # Unit & Integration Tests
-├── Dockerfile              # Container definition
-├── docker-compose.yml      # Service Orchestration
-├── requirements.txt        # Python Dependencies
-└── start_system.bat        # Windows Startup Script
+SWaT-AI-Guardian/
+│
+├── api/
+│   └── fastapi_server.py        # REST API for inference & system status
+│
+├── config/
+│   ├── kafka_config.yaml        # Kafka configuration
+│   └── model_config.yaml        # Model & threshold configuration
+│
+├── dashboard/
+│   └── app_kafka_live.py        # Real-time Streamlit dashboard
+│
+├── data_ingestion/
+│   ├── kafka_producer.py        # IoT sensor data simulator
+│   └── topics_setup.py          # Kafka topic creation
+│
+├── inference/
+│   ├── spark_consumer.py        # Spark Structured Streaming consumer
+│   └── streaming_inference.py  # Online anomaly detection logic
+│
+├── notebooks/
+│   └── SWaT_Anomaly_Detection_Scientific.ipynb
+│                                   # Research & experimentation notebook
+├── scripts/
+│   ├── train_production.py      # Model training pipeline
+│   ├── notifications.py         # Alert & notification handling
+│   └── utils.py                 # Common utility function
+│
+├── tests/
+│   └── test_detector.py         # Unit tests for anomaly detection
+│
+├── docker-compose.yml           # Multi-service orchestration
+├── Dockerfile                   # Container build definition
+├── requirements.txt             # Python dependencies
+├── start_system.bat             # One-click system startup (Windows)
+├── README.md                    # Project documentation
+├── LICENSE                      # License file
+└── .gitignore                   # Git ignore rules
+
 ```
 
 
@@ -156,22 +176,19 @@ secure-water-treatment/
 | `README.md` | Comprehensive documentation and guide (this file). | Documentation |
 | **Config Directory** | | |
 | `config/kafka_config.yaml` | Connection settings for Kafka brokers and topic definitions. | Configuration |
-| `config/spark_config.yaml` | Spark master/worker settings and streaming window parameters. | Configuration |
 | `config/model_config.yaml` | Hyperparameters, window sizes, and anomaly thresholds. | Configuration |
 | **Source Code (src/)** | | |
-| `src/utils.py` | Shared utilities for logging, config loading, and Kafka clients. | Utility |
-| `src/api/fastapi_server.py` | Backend API that serves real-time alerts via REST endpoints. | Backend |
-| `src/dashboard/app.py` | Main Streamlit UI with real-time charts and simulation controls. | Frontend |
-| `src/data_ingestion/kafka_producer.py` | Simulates sensor data by streaming CSV rows to Kafka. | Data Flow |
-| `src/data_ingestion/topics_setup.py` | Automated script to initialize required Kafka topics. | Setup |
-| `src/inference/streaming_inference.py` | Core engine running Deep Learning (Autoencoder) & Isolation Forest. | AI Engine |
-| `src/notebooks/train_anomaly_model.ipynb` | **Primary** beginner-friendly training notebook for all models. | Training |
-| `src/preprocessing/spark_preprocessing.py` | Spark script for real-time feature engineering and windowing. | Processing |
+| `utils.py` | Shared utilities for logging, config loading, and Kafka clients. | Utility |
+| `api/fastapi_server.py` | Backend API that serves real-time alerts via REST endpoints. | Backend |
+| `dashboard/app.py` | Main Streamlit UI with real-time charts and simulation controls. | Frontend |
+| `data_ingestion/kafka_producer.py` | Simulates sensor data by streaming CSV rows to Kafka. | Data Flow |
+| `data_ingestion/topics_setup.py` | Automated script to initialize required Kafka topics. | Setup |
+| `inference/streaming_inference.py` | Core engine running Deep Learning (Autoencoder) & Isolation Forest. | AI Engine |
+| `notebooks/train_anomaly_model.ipynb` | **Primary** beginner-friendly training notebook for all models. | Training |
+| `preprocessing/spark_preprocessing.py` | Spark script for real-time feature engineering and windowing. | Processing |
 | **Data & Models** | | |
 | `data/attack.csv` | Dataset containing simulated cyber-attack sensor readings. | Testing |
 | `data/normal.csv` | Dataset of standard industrial operations for model training. | Training |
-| `models/*.h5` | Saved TensorFlow/Keras model weights. | Model |
-| `models/*.pkl` | Serialized scalers and Isolation Forest model artifacts. | Model |
 | **Tests** | | |
 | `tests/test_detector.py` | Unit tests for the anomaly detection logic and thresholds. | QA |
 
@@ -436,6 +453,7 @@ For questions or support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for Industrial Cybersecurity**
+
 
 
 
