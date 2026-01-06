@@ -177,7 +177,7 @@ SWaT-AI-Guardian/
 | **Config Directory** | | |
 | `config/kafka_config.yaml` | Connection settings for Kafka brokers and topic definitions. | Configuration |
 | `config/model_config.yaml` | Hyperparameters, window sizes, and anomaly thresholds. | Configuration |
-| **Source Code (src/)** | | |
+| **Source Code** | | |
 | `utils.py` | Shared utilities for logging, config loading, and Kafka clients. | Utility |
 | `api/fastapi_server.py` | Backend API that serves real-time alerts via REST endpoints. | Backend |
 | `dashboard/app.py` | Main Streamlit UI with real-time charts and simulation controls. | Frontend |
@@ -453,6 +453,7 @@ For questions or support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for Industrial Cybersecurity**
+
 
 
 
