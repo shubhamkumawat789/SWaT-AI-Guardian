@@ -1,0 +1,209 @@
+# Model Configuration for SWaT Anomaly Detection System
+
+# Data Settings
+data:
+  # Paths
+  normal_data_path: "data/raw/normal.csv"
+  attack_data_path: "data/raw/attack.csv"
+  processed_data_path: "data/processed/"
+  
+  # Preprocessing
+  drop_columns:
+    - "Timestamp"
+    - "Normal/Attack"
+  
+  # Train/Test Split
+  test_size: 0.1
+  validation_split: 0.1
+  random_state: 42
+
+# Feature Engineering
+feature_engineering:
+  window_size: 60
+  stride: 10  # For training; use 1 for inference
+  
+  # Statistical features
+  features:
+    mean: true
+    std: true
+    min: true
+    max: true
+    slope: true
+    median: false
+    quantile_25: false
+    quantile_75: false
+  
+  # Scaling
+  scaler_type: "MinMaxScaler"  # Options: MinMaxScaler, StandardScaler, RobustScaler
+  scaler_path: "models/autoencoder/scaler.pkl"
+
+# Autoencoder Model
+autoencoder:
+  # Architecture
+  input_dim: null  # Auto-calculated from features
+  encoding_layers:
+    - 0.75  # Fraction of input_dim
+    - 0.5   # Encoding dimension
+    - 0.25  # Bottleneck
+  
+  decoding_layers:
+    - 0.5   # Mirror of encoding
+    - 0.75
+  
+  # Activation functions
+  encoder_activation: "relu"
+  decoder_activation: "relu"
+  output_activation: "sigmoid"
+  
+  # Dropout (optional)
+  dropout_rate: 0.0
+  
+  # Training
+  optimizer: "adam"
+  learning_rate: 0.001
+  loss: "mse"
+  metrics:
+    - "mae"
+  
+  epochs: 10
+  batch_size: 64
+  shuffle: true
+  verbose: 1
+  
+  # Callbacks
+  early_stopping:
+    enabled: true
+    monitor: "val_loss"
+    patience: 5
+    restore_best_weights: true
+  
+  reduce_lr:
+    enabled: true
+    monitor: "val_loss"
+    factor: 0.5
+    patience: 3
+    min_lr: 0.00001
+  
+  # Model saving
+  model_path: "models/autoencoder/model.h5"
+  save_best_only: true
+
+# Isolation Forest (Ensemble Model)
+isolation_forest:
+  enabled: false  # Enable in Phase 4
+  n_estimators: 100
+  max_samples: "auto"
+  contamination: 0.01  # Expected proportion of anomalies
+  max_features: 1.0
+  bootstrap: false
+  random_state: 42
+  model_path: "models/isolation_forest/model.pkl"
+
+# Anomaly Detection
+anomaly_detection:
+  # Threshold calculation
+  threshold_method: "percentile"  # Options: percentile, std_dev, manual
+  threshold_percentile: 99.5
+  threshold_std_multiplier: 3.0
+  manual_threshold: null
+  
+  # Threshold path
+  threshold_path: "models/autoencoder/threshold.json"
+  
+  # Ensemble settings (when both models are used)
+  ensemble:
+    enabled: false
+    autoencoder_weight: 0.7
+    isolation_forest_weight: 0.3
+    voting_method: "weighted"  # Options: weighted, majority
+
+# Alert Configuration
+alerts:
+  # Alert levels based on MSE multiplier
+  levels:
+    info:
+      min_multiplier: 1.0
+      max_multiplier: 1.5
+      color: "blue"
+    
+    warning:
+      min_multiplier: 1.5
+      max_multiplier: 2.0
+      color: "yellow"
+    
+    critical:
+      min_multiplier: 2.0
+      max_multiplier: null  # No upper limit
+      color: "red"
+  
+  # Alert aggregation (prevent spam)
+  aggregation:
+    enabled: true
+    window_seconds: 60
+    max_alerts_per_window: 10
+  
+  # Alert channels
+  channels:
+    console: true
+    dashboard: true
+    email: false
+    sms: false
+    webhook: false
+
+# Inference Settings
+inference:
+  # Batch processing
+  batch_size: 5
+  buffer_size: 60
+  
+  # Real-time settings
+  update_interval_ms: 100
+  max_history_length: 1000
+  
+  # Performance
+  use_gpu: false
+  num_threads: 4
+
+# Logging
+logging:
+  level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # File logging
+  file_logging:
+    enabled: true
+    log_dir: "logs/"
+    max_bytes: 10485760  # 10MB
+    backup_count: 5
+  
+  # Structured logging (JSON)
+  json_logging:
+    enabled: false
+
+# Monitoring & Metrics
+monitoring:
+  # Track metrics
+  track_metrics: true
+  metrics_interval_seconds: 60
+  
+  # Metrics to track
+  metrics:
+    - total_processed
+    - anomalies_detected
+    - false_positives
+    - true_positives
+    - processing_time_ms
+    - throughput_events_per_sec
+  
+  # Export metrics
+  export:
+    enabled: false
+    format: "prometheus"  # Options: prometheus, json
+    port: 9090
+
+# Experiment Tracking (Optional - MLflow, Weights & Biases)
+experiment_tracking:
+  enabled: false
+  backend: "mlflow"  # Options: mlflow, wandb
+  experiment_name: "swat-anomaly-detection"
+  tracking_uri: "./mlruns"
