@@ -2,7 +2,7 @@
 
 ## 🎯 Project Overview
 
-An advanced real-time anomaly detection system for Secure Water Treatment (SWaT) infrastructure using deep learning, streaming analytics, and distributed computing.
+Develop a streaming Big Data analytics platform using Kafka and Spark Streaming to monitor large-scale simulated IoT sensor data from critical infrastructure. The main goal is to build an unsupervised anomaly detection model to identify zero-day cyber-physical attacks or early failure patterns that deviate from normal behavior. An advanced real-time anomaly detection system for Secure Water Treatment (SWaT) infrastructure using deep learning, streaming analytics, and distributed computing.
 
 ## 🧰 Tech Stack
 
@@ -453,6 +453,7 @@ For questions or support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for Industrial Cybersecurity**
+
 
 
 
