@@ -283,7 +283,7 @@ pip install -r requirements.txt
 
 ### **2. Train the Model**
 The system uses the unified Jupyter Notebook for all model training:
-- **Notebook**: `src/notebooks/train_anomaly_model.ipynb`
+- **Notebook**: `notebooks/SWaT_Anomaly_Detection_Scientific.ipynb`
 
 Open this notebook in VS Code or Jupyter and run all cells to train the Autoencoder and Isolation Forest models.
 
@@ -453,6 +453,7 @@ For questions or support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for Industrial Cybersecurity**
+
 
 
 
