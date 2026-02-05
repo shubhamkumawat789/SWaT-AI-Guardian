@@ -1,3 +1,4 @@
+
 import os
 import sys
 import datetime
@@ -69,9 +70,6 @@ def main():
         print(f"[!] Critical: {normal_csv} not found.")
         return
 
-    # Load only necessary amount if file is huge, but for production we usually load all
-    # Using 100k rows for speed in this demo context if needed, but let's try full load
-    # or a robust sample.
     df = pd.read_csv(normal_csv)
     df.columns = df.columns.str.strip()
     

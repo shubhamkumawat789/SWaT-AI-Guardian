@@ -1,7 +1,7 @@
 {
-    "ae_threshold": 2.7108667125477983,
-    "iso_threshold": 1.4031100771267485e-17,
+    "ae_threshold": 3.344223048995387,
+    "iso_threshold": -4.1550777711086076e-17,
     "h_factor": 0.5,
     "threshold_type": "Data-Driven (99.9th Percentile)",
-    "training_date": "2026-02-04T14:07:32.945013"
+    "training_date": "2026-02-05T22:20:38.777916"
 }
