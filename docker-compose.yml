@@ -1,0 +1,176 @@
+version: '3.8'
+
+services:
+  # ---------------------------
+  # INFRASTRUCTURE
+  # ---------------------------
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: swat-zookeeper
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - swat-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: swat-kafka
+    restart: always
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    networks:
+      - swat-network
+    healthcheck:
+      test: kafka-topics --bootstrap-server localhost:9092 --list
+      start_period: 30s
+      interval: 10s
+      retries: 5
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: swat-kafka-ui
+    restart: always
+    depends_on:
+      - kafka
+    ports:
+      - "8081:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: swat-cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9093
+    networks:
+      - swat-network
+
+  # ---------------------------
+  # APPLICATION SERVICES
+  # ---------------------------
+
+  # 1. Init / Setup Topics
+  init-kafka:
+    build: .
+    container_name: swat-init
+    command: python src/data_ingestion/topics_setup.py
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9093
+    volumes:
+      - .:/app
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - swat-network
+
+  # 2. API Backend
+  api:
+    build: .
+    container_name: swat-api
+    restart: always
+    command: python src/api/fastapi_server.py
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9093
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      init-kafka:
+        condition: service_completed_successfully
+    networks:
+      - swat-network
+
+  # 3. Dashboard
+  dashboard:
+    build: .
+    container_name: swat-dashboard
+    restart: always
+    command: streamlit run src/dashboard/app_kafka_live.py
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9093
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    depends_on:
+      init-kafka:
+        condition: service_completed_successfully
+    networks:
+      - swat-network
+
+  # 4. Inference Engine
+  inference:
+    build: .
+    container_name: swat-inference
+    restart: always
+    command: python src/inference/streaming_inference.py
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9093
+    volumes:
+      - .:/app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+    depends_on:
+      init-kafka:
+        condition: service_completed_successfully
+    networks:
+      - swat-network
+
+  # 5. Kafka Producer (Data Simulator)
+  producer:
+    build: .
+    container_name: swat-producer
+    restart: always
+    command: python src/data_ingestion/kafka_producer.py
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9093
+    volumes:
+      - .:/app
+    depends_on:
+      init-kafka:
+        condition: service_completed_successfully
+    networks:
+      - swat-network
+
+  # 6. Spark Consumer (Optional/Advanced)
+  spark-worker:
+    build: .
+    container_name: swat-spark
+    restart: always
+    command: python src/inference/spark_consumer.py
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9093
+    volumes:
+      - .:/app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+    depends_on:
+      init-kafka:
+        condition: service_completed_successfully
+    networks:
+      - swat-network
+
+networks:
+  swat-network:
+    driver: bridge

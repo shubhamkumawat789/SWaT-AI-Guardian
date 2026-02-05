@@ -1,0 +1,50 @@
+# Kafka Configuration for SWaT Anomaly Detection System
+
+# Kafka Broker Settings
+bootstrap_servers: localhost:9092
+
+# Topic Configuration
+topics:
+  sensor_data: "swat-sensor-data"
+  processed_features: "swat-processed-features"
+  anomalies: "swat-anomalies"
+  alerts: "swat-alerts"
+
+# Topic Partitions and Replication
+topic_config:
+  num_partitions: 3
+  replication_factor: 1
+  retention_ms: 86400000  # 24 hours
+
+# Producer Settings
+producer:
+  acks: "all"  # Wait for all replicas
+  compression_type: "gzip"
+  batch_size: 16384
+  linger_ms: 10
+  max_in_flight_requests_per_connection: 5
+  retries: 3
+
+# Consumer Settings
+consumer:
+  group_id: "swat-consumer-group"
+  auto_offset_reset: "earliest"  # Start from beginning if no offset
+  enable_auto_commit: true
+  auto_commit_interval_ms: 5000
+  max_poll_records: 500
+  session_timeout_ms: 30000
+  heartbeat_interval_ms: 10000
+
+# Streaming Settings
+streaming:
+  poll_timeout_ms: 1000
+  max_poll_interval_ms: 300000
+
+# Security (Optional - for production)
+security:
+  enabled: false
+  protocol: "SASL_SSL"
+  sasl_mechanism: "PLAIN"
+  # ssl_ca_location: "/path/to/ca-cert"
+  # sasl_username: "your-username"
+  # sasl_password: "your-password"

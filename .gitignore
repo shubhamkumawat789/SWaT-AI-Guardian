@@ -1,0 +1,17 @@
+
+# Large Data Files
+data/normal.csv
+data/proceed/
+
+# Environment
+.venv/
+env/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.env
+
+# Logs
+logs/
+*.log
