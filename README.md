@@ -133,93 +133,31 @@ secure-water-treatment/
 
 ---
 
-## 🚀 Implementation Roadmap
+## ⚡ Deployment Guide
+This system is designed for **One-Click Deployment**.
 
-### **Phase 1: Project Setup** (Week 1) ✅
-- [x] Create project structure
-- [x] Set up virtual environment
-- [x] Install dependencies
-- [x] Configuration management
+### Prerequisites
+*   Docker & Docker Desktop (with WSL 2 Backend)
+*   NVIDIA GPU (Optional, CPU fallback supported)
 
-### **Phase 2: Kafka Integration** (Week 2)
-- [ ] Install and configure Kafka
-- [ ] Create Kafka producer (sensor data simulation)
-- [ ] Create Kafka consumer
-- [ ] Set up topics (sensor-data, anomalies, alerts)
+### Quick Start
+1.  **Clone the Repository**
+    ```bash
+    git clone <repo-url>
+    cd secure-water-treatment-system
+    ```
 
-### **Phase 3: Spark Integration** (Week 3)
-- [ ] Set up PySpark environment
-- [ ] Implement Spark Structured Streaming
-- [ ] Migrate feature engineering to PySpark
-- [ ] Window-based aggregations with event-time processing
+2.  **Launch the System**
+    Run the production startup script:
+    ```bash
+    bash start_system.sh
+    ```
+    *This script handles container orchestration, network creation, and health checks.*
 
-### **Phase 4: Enhanced ML Models** (Week 4)
-- [ ] Train Isolation Forest for ensemble detection
-- [ ] Implement model versioning
-- [ ] Create ensemble inference pipeline
-- [ ] Optimize model performance
-
-### **Phase 5: FastAPI Backend** (Week 5)
-- [ ] Create REST API with FastAPI
-- [ ] Implement prediction endpoints
-- [ ] Add WebSocket for real-time updates
-- [ ] Authentication and rate limiting
-
-### **Phase 6: Advanced Alerting** (Week 6)
-- [ ] Multi-level alerting (INFO, WARNING, CRITICAL)
-- [ ] Structured logging with JSON format
-- [ ] Alert aggregation and deduplication
-- [ ] Monitoring dashboard
-
-### **Phase 7: Visualization** (Week 7)
-- [ ] Enhanced Streamlit dashboard
-- [ ] Real-time Kafka stream visualization
-- [ ] Automated report generation
-- [ ] Export capabilities (PDF, CSV)
-
-### **Phase 8: Testing & Optimization** (Week 8)
-- [ ] Unit tests for all components
-- [ ] Integration tests (end-to-end)
-- [ ] Performance optimization
-- [ ] Comprehensive documentation
-
-### **Phase 9: Deployment** (Week 9-10)
-- [ ] Docker containerization
-- [ ] Docker Compose orchestration
-- [ ] CI/CD pipeline
-- [ ] Production deployment
-
----
-
-## 🛠️ Quick Start
-
-### **1. Clone and Setup**
-```bash
-cd "C:\Users\Shubham\Documents\Secure Water Treatment System"
-python -m venv venv
-.\venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### **2. Train the Model**
-```bash
-python src/models/train_autoencoder.py
-```
-
-### **3. Run Streaming Inference**
-```bash
-python src/inference/streaming_inference.py
-```
-
-### **4. Launch Dashboard**
-```bash
-streamlit run src/dashboard/streamlit_app.py
-```
-
-### **5. Start FastAPI Server** (Coming in Phase 5)
-```bash
-uvicorn src.api.fastapi_server:app --reload
-```
+3.  **Access the Interface**
+    *   **Dashboard**: [http://localhost:8501](http://localhost:8501)
+    *   **API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
+    *   **Kafka Manager**: [http://localhost:8081](http://localhost:8081)
 
 ---
 
@@ -372,3 +310,4 @@ For questions or support, please open an issue on GitHub.
 ---
 
 **Built with ❤️ for Industrial Cybersecurity**
+
